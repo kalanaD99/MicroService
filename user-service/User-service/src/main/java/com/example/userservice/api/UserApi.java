@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +21,7 @@ public class UserApi {
     RestTemplate template;
 
     @PostMapping
-    public ResponseEntity<String> SaveUser(UserDto userDto){
+    public ResponseEntity<String> SaveUser(@RequestBody UserDto userDto){
         service.Save(userDto);
         return new ResponseEntity<>(userDto.getUserId()+"User Saved Successfully !...", HttpStatus.OK);
     }
