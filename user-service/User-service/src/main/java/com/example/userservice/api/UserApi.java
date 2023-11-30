@@ -1,5 +1,6 @@
 package com.example.userservice.api;
 
+import com.example.userservice.dto.ItemDto;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,16 @@ public class UserApi {
     RestTemplate template;
 
     @PostMapping
-    public ResponseEntity<String> SaveUser(@RequestBody UserDto userDto){
+    public String SaveUser(@RequestBody UserDto userDto){
+        System.out.println(userDto);
         service.Save(userDto);
-        return new ResponseEntity<>(userDto.getUserId()+"User Saved Successfully !...", HttpStatus.OK);
+        return "Successfull !";
+    }
+    @PostMapping("/saveItem")
+    public String saveItem(@RequestBody ItemDto itemDto){
+        String response = template.postForObject("http://localhost:9085/userService/api/v2/item", itemDto, String.class);
+        return response;
+
+
     }
 }
